@@ -4,11 +4,11 @@ Python for Mycorrhizal Symbiosis analysis (PyMS) is a graphical user interface-b
 
 ## Installation
 
-PyMS depends on ``pandas``, ``numpy``, ``matplotlib`` and ``scipy``. You can install them using your favourite package manager. To install PyMyS you can clone the [GitHub repository](https://github.com/jschnab/pyms.git) then place a shortcut of the file *pyms/pyms/run_pyms.bat* on the Desktop.
+PyMS depends on [pandas](https://pandas.pydata.org/), [NumPy](http://www.numpy.org/), [matplotlib](https://matplotlib.org/) and [SciPy](https://matplotlib.org/). You can install them using your favourite package manager. To install PyMyS you can clone the [GitHub repository](https://github.com/jschnab/pyms.git) then follow one of the next two options. 
 
 ### Windows users
 
-To run PyMS, simply click on the shortcut for *run_pyms.bat*. It will take a few seconds to load all the packages which are used by PyMS. In the end, the graphical user interface for PyMS will appear (along with a console window which should be kept open, it will close automatically when you exit PyMS).
+To run PyMS place a shortcut of the file *pyms/pyms/run_pyms.bat* on the desktop then simply click on the shortcut. It will take a few seconds to load all the packages which are used by PyMS. In the end, the graphical user interface for PyMS will appear (along with a console window which should be kept open, it will close automatically when you exit PyMS).
 
 ### Other OS users
 
@@ -25,7 +25,7 @@ The input file should be a csv file with a specific formatting
 ## Generate and save a figure
 * Select the graphical parameters you want by ticking options in menus "Group by" and "Color".
 
-* Click on the "Process" menu and click on "Analyze csv file", it will open a pop-up and you can browse your file. It expects to see "Genotype" or "genotype" as a column header, the rest is detected automatically.
+* Click on the "Process" menu and click on "Analyze csv file", it will open a pop-up and you can browse your file.
 
 * Click on the "File" menu and point on "Save as" to display the file type choice. Click on the file extension name to save your file in the same folder as your csv file. If you generate several figures by clicking on "Analyze csv file" several times, it will save the last figure generated.
 
