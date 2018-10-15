@@ -31,8 +31,7 @@ The input file should be a csv file with a specific formatting
 
 ## Statistical analysis
 * If you have not opened the csv file in PyMS yet, click on the "Process" menu and click on "Analyze csv file", it will open a 
-pop-up and you can browse your file. It expects to see "Genotype" or "genotype" as a column header, the rest is detected 
-automatically.
+pop-up and you can browse your file.
 
 * Click on the "Statistics" menu and select the test you want by ticking one of 
 them. You then need to select the genotypes you want to analyze in the "Select samples" menu. You can detach the menu by clicking on the top -------, so that you don't have to open the menu each time you select a genotype. Once you selected the genotypes of interest, click on "Perform statistical test" in the "Process" menu. The p-values returned by the test will be saved in a text file in the same folder as your csv file.

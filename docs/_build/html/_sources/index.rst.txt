@@ -14,12 +14,12 @@ Documentation
 Installation
 ------------
 
-PyMS depends on ``pandas``, ``numpy``, ``matplotlib`` and ``scipy``. You can install them using your favourite package manager. To install PyMyS you can clone the `GitHub repository <https://github.com/jschnab/pyms.git>`_ then place a shortcut of the file *pyms/pyms/run_pyms.bat* on the Desktop.
+PyMS depends on `pandas <https://pandas.pydata.org/>`_, `NumPy <http://www.numpy.org/>`_, `matplotlib <https://matplotlib.org/>`_ and `SciPy <https://www.scipy.org/>`_. You can install them using your favourite package manager. To install PyMyS you can clone the `GitHub repository <https://github.com/jschnab/pyms.git>`_ then follow one of the next two options.
 
 Windows users
 ~~~~~~~~~~~~~
 
-To run PyMS, simply click on the shortcut for *run_pyms.bat*. It will take a few seconds to load all the packages which are used by PyMS. In the end, the graphical user interface for PyMS will appear (along with a console window which should be kept open, it will close automatically when you exit PyMS).
+Place on the desktop a shortcut for */pyms/pyms/run_pyms.bat* then simply click on the shortcut to start PyMS. It will take a few seconds to load all the packages. In the end, the graphical user interface for PyMS will appear (along with a console window which should be kept open, it will close automatically when you exit PyMS).
 
 Other OS users
 ~~~~~~~~~~~~~~
@@ -38,14 +38,14 @@ Visualize the data and save a figure
 
 * Select the graphical parameters you want by ticking options in menus "Group by" and "Color".
 
-* Click on the "Process" menu and click on "Analyze csv file", it will open a pop-up and you can browse your file. It expects to see "Genotype" or "genotype" as a column header, the rest is detected automatically.
+* Click on the "Process" menu and click on "Analyze csv file", it will open a pop-up and you can browse your file.
 
 * Click on the "File" menu and point on "Save as" to display the file type choice. Click on the file extension name to save your file in the same folder as your csv file. If you generate several figures by clicking on "Analyze csv file" several times, it will save the last figure generated.
 
 Statistical analysis
 --------------------
 
-* If you have not opened the csv file in PyMS yet, click on the "Process" menu and click on "Analyze csv file", it will open a pop-up and you can browse your file. It expects to see "Genotype" or "genotype" as a column header, the rest is detected automatically.
+* If you have not opened the csv file in PyMS yet, click on the "Process" menu and click on "Analyze csv file", it will open a pop-up and you can browse your file.
 
 * Click on the "Statistics" menu and select the test you want by ticking one of them. You then need to select the genotypes you want to analyze in the "Select samples" menu. You can detach the menu by clicking on the dashed line at the top of the window, so that you don't have to open the menu each time you select a genotype. Once you selected the genotypes of interest, click on "Perform statistical test" in the "Process" menu. The p-values returned by the test will be saved in a text file in the same folder as your csv file.
 
