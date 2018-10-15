@@ -1,20 +1,26 @@
 # PyMS
-Python for Mycorrhizal Symbiosis (PyMS) is a software for quantification of mycorrhizal fungus root colonization with graphical interface. PyMS allows you to generate a
-bar + scatter plot representing median and individual data values and save it in various image formats. In addition, PyMS allows you
-to perform statistical testing on your data to identify differences between groups.
 
-## System requirements
-PyMS was written in Python 3.5 and requires Pandas, Numpy, Matplotlib, Scipy and home-made Mann-Whitney and Dunn's statistical 
-tests which can be found in my [statistics repository](https://github.com/jschnab/statistics).
-PyMS is mainly tested on Windows (a bit on MacOS but some features may not work properly).
+Python for Mycorrhizal Symbiosis analysis (PyMS) is a graphical user interface-based programme to visualize quantitative analysis of mycorrhizal fungi colonization of plant roots and perform statistical analysis of the data. It was developed to help researchers who are not familiar with command line-based softwares, or who want to increase their productivity during data analysis.
+
+## Installation
+
+PyMS depends on ``pandas``, ``numpy``, ``matplotlib`` and ``scipy``. You can install them using your favourite package manager. To install PyMyS you can clone the [GitHub repository](https://github.com/jschnab/pyms.git) then place a shortcut of the file *pyms/pyms/run_pyms.bat* on the Desktop.
+
+### Windows users
+
+To run PyMS, simply click on the shortcut for *run_pyms.bat*. It will take a few seconds to load all the packages which are used by PyMS. In the end, the graphical user interface for PyMS will appear (along with a console window which should be kept open, it will close automatically when you exit PyMS).
+
+### Other OS users
+
+To run PyMS, navigate to */pyms/pyms* where *pyms.py* is located and type ``python pyms.py`` in the console. It will take a few seconds to load all the packages which are used by PyMS, then the graphical user interface for PyMS will appear.
 
 ## Input data and file format
 Quantification of arbuscular mycorrhizal fungus colonization of plant roots should be done via a modified version of the grid-line
 intersect method (see [Paszkowski, U., Jakovleva, L., and Boller, T. (2006). Maize mutants affected at distinct stages of the 
-arbuscular mycorrhizal symbiosis. Plant J. 47 165–173](https://www.ncbi.nlm.nih.gov/pubmed/16762030)) or an equivalent method.
+arbuscular mycorrhizal symbiosis. Plant J. 47 165-173](https://www.ncbi.nlm.nih.gov/pubmed/16762030)) or an equivalent method.
 
-The input file should be a csv file with a specific formatting different from the "tidy data" specification 
-(see "test_colonisation.csv" in the same repository for an example, data from [Chiu, C. H., Choi, J., Paszkowski, U. (2018) Independent signalling cues underpin arbuscular mycorrhizal symbiosis and large lateral root induction in rice. New Phytologist. 217 552-557](https://www.ncbi.nlm.nih.gov/pubmed/29194644)).
+The input file should be a csv file with a specific formatting 
+(see *test_colonisation.csv* in the same repository for an example, data from [Chiu, C. H., Choi, J., Paszkowski, U. (2018) Independent signalling cues underpin arbuscular mycorrhizal symbiosis and large lateral root induction in rice. New Phytologist. 217 552-557](https://www.ncbi.nlm.nih.gov/pubmed/29194644)).
 
 ## Generate and save a figure
 * Select the graphical parameters you want by ticking options in menus "Group by" and "Color".
