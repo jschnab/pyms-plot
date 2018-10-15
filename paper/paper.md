@@ -21,7 +21,7 @@ Python for Mycorrhizal Symbiosis (PyMS) aims at providing an easier way for rese
 
 PyMS allows users to plot data according to the representation most widely used (bar-plot showing the median of data and scatter-plot displaying individual data points) and select a few graphical parameters (two different modes of data grouping and bar face color including a color-blind-friendly palette). Figures can be saved in different image formats depending on downstream application.
 
-To test the hypothesis of different mycorrhizal colonization levels between groups, PyMS uses the Mann-Whitney test or its own implementation of the Kruskal-Wallis test with post-hoc analysis using the Dunn's test. These tests were chosen because the small sample sizes obtained during mycorrhizal colonization of roots makes difficult to assess if the data are normally distributed.
+To test the hypothesis of different mycorrhizal colonization levels between groups, PyMS uses the Mann-Whitney test or its own implementation of the Kruskal-Wallis test with post-hoc analysis using the Dunn's test. These tests were chosen because the small sample sizes obtained during mycorrhizal colonization of roots makes less reliable the use of parametric tests.
 
 PyMS uses the module tkinter to provide a graphical user interface for data visualization and to perform statistical tests. PyMS relies on [@pandas] to manipulate data, [@matplotlib] to build plots and [@SciPy] for statistics. 
 
