@@ -6,7 +6,7 @@
 Welcome to PyMS's documentation!
 =================================
 
-Python for Mycorrhizal Symbiosis analysis (PyMS) is a graphical user interface-based programme to visualize quantitative analysis of mycorrhizal fungi colonization of plant roots and perform statistical analysis of the data. It was developed to help researcher who are not familiar with command line-based softwares, or who want to increase their productivity during data analysis.
+Python for Mycorrhizal Symbiosis analysis (PyMS) is a graphical user interface-based programme to visualize quantitative analysis of mycorrhizal fungi colonization of plant roots and perform statistical analysis of the data. It was developed to help researchers who are not familiar with command line-based softwares, or who want to increase their productivity during data analysis.
 
 Documentation
 =============
@@ -14,7 +14,13 @@ Documentation
 Installation
 ------------
 
-PyMS depends on ``pandas``, ``numpy``, ``matplotlib`` and ``scipy``. You can install them using your favourite package manager. To install PyMyS you can clone the `GitHub repository <https://github.com/jschnab/pyms.git>`_ then run ``pyms.py`` using Python's interpreter.
+PyMS depends on ``pandas``, ``numpy``, ``matplotlib`` and ``scipy``. You can install them using your favourite package manager. To install PyMyS you can clone the `GitHub repository <https://github.com/jschnab/pyms.git>`_ then place a shortcut of the file *pyms/pyms/run_pyms.bat* on the Desktop.
+
+** Windows users **
+To run PyMS, simply click on the shortcut for *run_pyms.bat*. It will take a few seconds to load all the packages which are used by PyMS. In the end, the graphical user interface for PyMS will appear (along with a console window which should be kept open, it will close automatically when you exit PyMS).
+
+** Other OS users **
+To run PyMS, navigate to */pyms/pyms* where *pyms.py* is located and type ``python pyms.py`` in the console. It will take a few seconds to load all the packages which are used by PyMS, then the graphical user interface for PyMS will appear.
 
 Input data and file format
 --------------------------

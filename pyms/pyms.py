@@ -1,6 +1,6 @@
 #script which generates a barplot from colonization data
 #written by Jonathan Schnabel, December 2017 (last update August 2018)
-#licence GPL
+#licence GPLv3
 
 #TO DO: change window icon
 #TO DO: put error handlers
@@ -193,7 +193,7 @@ class Application(Frame):
     """main application"""
     def __init__(self, boss=None):
         Frame.__init__(self)
-        self.master.title('PyMS 0.8.0')
+        self.master.title('PyMS 0.8.1')
         self.mBar = MenuBar(self)
         self.mBar.me1.invoke(1)
         self.mBar.me3.invoke(2)
@@ -282,7 +282,7 @@ class Application(Frame):
                   + str(Global.export_number_stats) + '.txt', 'w') as outfile:
             outfile.write('Mann-Whitney two-sided test for genotype \
 combinations indicated in the \n"Genotypes" columns and fungal structures \
-indicated as column headers.\nValues indicate upper boundary for p-value.\n\n')
+indicated as column headers.\nValues indicate p-value.\n\n')
             df.to_string(outfile)
 
     def dunn(self):
