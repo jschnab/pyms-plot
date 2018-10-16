@@ -49,3 +49,7 @@ Statistical analysis
 
 * Click on the "Statistics" menu and select the test you want by ticking one of them. You then need to select the genotypes you want to analyze in the "Select samples" menu. You can detach the menu by clicking on the dashed line at the top of the window, so that you don't have to open the menu each time you select a genotype. Once you selected the genotypes of interest, click on "Perform statistical test" in the "Process" menu. The p-values returned by the test will be saved in a text file in the same folder as your csv file.
 
+Support
+-------
+
+If you have any question regarding PyMS, please send an email to jonathan.schnabel31@gmail.com.
