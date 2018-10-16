@@ -1,5 +1,5 @@
 #script which generates a barplot from colonization data
-#written by Jonathan Schnabel, December 2017 (last update August 2018)
+#written by Jonathan Schnabel, December 2017 (last update October 2018)
 #licence GPLv3
 
 #TO DO: change window icon
