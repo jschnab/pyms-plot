@@ -25,4 +25,8 @@ To test the hypothesis of different mycorrhizal colonization levels between grou
 
 PyMS uses the module tkinter to provide a graphical user interface for data visualization and to perform statistical tests. PyMS relies on [@pandas] to manipulate data, [@matplotlib] to build plots and [@SciPy] for statistics. 
 
+# Acknowledgements
+
+This work was supported by a BBSRC grant (project reference BB/P003419/1) granted to Uta Paszkowski (Department of Plant Sciences, University of Cambridge, UK).
+
 # References
