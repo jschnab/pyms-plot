@@ -23,7 +23,7 @@ PyMS allows users to plot data according to the representation most widely used 
 
 To test the hypothesis of different mycorrhizal colonization levels between groups, PyMS uses the Mann-Whitney test or its own implementation of the Kruskal-Wallis test with post-hoc analysis using the Dunn's test. These tests were chosen because the small sample sizes obtained during mycorrhizal colonization of roots makes less reliable the use of parametric tests.
 
-PyMS uses the module tkinter to provide a graphical user interface for data visualization and to perform statistical tests. PyMS relies on [@pandas] to manipulate data, [@matplotlib] to build plots and [@SciPy] for statistics. 
+PyMS uses the module tkinter to provide a graphical user interface for data visualization and to perform statistical tests. PyMS relies on pandas [@pandas] to manipulate data, matplotlib [@matplotlib] to build plots and SciPy [@SciPy] for statistics. 
 
 # Acknowledgements
 
