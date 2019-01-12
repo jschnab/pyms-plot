@@ -50,6 +50,10 @@
 
 # 13/10/2018 Mann-Whitney test from scipy.stats is now used
 
+# 12/01/2019 remove error when closing window with 'Close' button
+#            user chooses where to save files (plots and test results)
+#            'Select all' button to select all genotypes for tests
+
 from tkinter import *
 from tkinter import filedialog
 import pandas as pd
@@ -339,6 +343,19 @@ combinations indicated in the \n"Genotypes" columns and fungal structures \
 indicated as column headers.\n\n')
             df.to_string(outfile)
 
+    def select_all_samples(self):
+        """Select all samples when the checkbutton is clicked."""
+
+        # if 'Select all' button is checked, select all samples
+        if self.mBar.select_all.get() == 1:
+            for g in Global.geno:
+                self.mBar.samples[g].set(1)
+
+        # else deselect all samples
+        else:
+            for g in Global.geno:
+                self.mBar.samples[g].set(0)
+
     def process_csv(self):
         """Read csv file containing arbuscular mycorrhizal fungi colonization
 data, calculate median, display bar chart and perform Mann-Whitney test on each genotype
@@ -463,6 +480,10 @@ combination"""
                 self.mBar.me5.add_radiobutton(label=lab, variable=self.mBar.stat_test,
                                               value=v, command=None)
             self.mBar.me6 = Menu(self.mBar.me5)
+            # tkinter variable to store if 'Select all' button is checked
+            self.mBar.select_all = IntVar()
+            # button to select/deselect all samples
+            self.mBar.me6.add_checkbutton(label='Select all', command=self.select_all_samples, variable=self.mBar.select_all, onvalue=1, offvalue=0)
             self.mBar.samples = {} #re-initialize dictionary
             for (v, lab) in list(zip(range(len(geno)), geno)):
                 self.mBar.samples['{0}'.format(lab)] = IntVar()
@@ -586,6 +607,10 @@ combination"""
                 self.mBar.me5.add_radiobutton(label=lab, variable=self.mBar.stat_test,
                                               value=v, command=None)
             self.mBar.me6 = Menu(self.mBar.me5)
+            # tkinter variable to store if 'Select all' button is checked
+            self.mBar.select_all = IntVar()
+            # button to select/deselect all samples
+            self.mBar.me6.add_checkbutton(label='Select all', command=self.select_all_samples, variable=self.mBar.select_all, onvalue=1, offvalue=0)
             self.mBar.samples = {} #re-initialize dictionary
             for (v, lab) in list(zip(range(len(geno)), geno)):
                 self.mBar.samples['{0}'.format(lab)] = IntVar()
