@@ -205,26 +205,30 @@ class Application(Frame):
 
     def saveas_pdf(self):
         """Save plot as pdf file"""
-        fi_name = Global.file_name.split('.')[0] + '-' \
-                             + str(Global.export_number_fig) + '.pdf'
+        #fi_name = Global.file_name.split('.')[0] + '-' \
+        #                     + str(Global.export_number_fig) + '.pdf'
+        fi_name = filedialog.asksaveasfilename() + '.pdf'
         plt.savefig(fname=fi_name, bbox_inches='tight')
 
     def saveas_png(self):
         """Save plot as png file"""
-        fi_name = Global.file_name.split('.')[0] + '-' \
-                             + str(Global.export_number_fig) + '.png'
+        #fi_name = Global.file_name.split('.')[0] + '-' \
+        #                     + str(Global.export_number_fig) + '.png'
+        fi_name = filedialog.asksaveasfilename() + '.png'
         plt.savefig(fname=fi_name, bbox_inches='tight', dpi=300)
 
     def saveas_eps(self):
         """Save plot as eps file"""
-        fi_name = Global.file_name.split('.')[0] + '-' \
-                             + str(Global.export_number_fig) + '.eps'
+        #fi_name = Global.file_name.split('.')[0] + '-' \
+        #                     + str(Global.export_number_fig) + '.eps'
+        fi_name = filedialog.asksaveasfilename() + '.eps'
         plt.savefig(fname=fi_name, bbox_inches='tight')
 
     def saveas_svg(self):
         """Save plot as svg file"""
-        fi_name = Global.file_name.split('.')[0] + '-' \
-                             + str(Global.export_number_fig) + '.svg'
+        #fi_name = Global.file_name.split('.')[0] + '-' \
+        #                     + str(Global.export_number_fig) + '.svg'
+        fi_name = filedialog.asksaveasfilename() + '.svg'
         plt.savefig(fname=fi_name, bbox_inches='tight')
 
     def do_stat_test(self):
@@ -278,8 +282,10 @@ class Application(Frame):
 
 
         #saves p-values dataframe in text file
-        with open(Global.file_name.split('.')[0] + '_MW_pval' + '-' \
-                  + str(Global.export_number_stats) + '.txt', 'w') as outfile:
+        stat_fname = filedialog.asksaveasfilename() + '.txt'
+        #with open(Global.file_name.split('.')[0] + '_MW_pval' + '-' \
+        #          + str(Global.export_number_stats) + '.txt', 'w') as outfile:
+        with open(stat_fname, 'w') as outfile:
             outfile.write('Mann-Whitney two-sided test for genotype \
 combinations indicated in the \n"Genotypes" columns and fungal structures \
 indicated as column headers.\nValues indicate p-value.\n\n')
@@ -324,8 +330,10 @@ indicated as column headers.\nValues indicate p-value.\n\n')
         df = df.set_index('Genotypes')
 
         #saves p-values dataframe in text file
-        with open(Global.file_name.split('.')[0] + '_Dunn_pval' + '-' \
-                  + str(Global.export_number_stats) + '.txt', 'w') as outfile:
+        stat_fname = filedialog.asksaveasfilename() + '.txt'
+        #with open(Global.file_name.split('.')[0] + '_Dunn_pval' + '-' \
+        #          + str(Global.export_number_stats) + '.txt', 'w') as outfile:
+        with open(stat_fname, 'w') as outfile:
             outfile.write('p-values of Dunn\'s test for genotype \
 combinations indicated in the \n"Genotypes" columns and fungal structures \
 indicated as column headers.\n\n')
@@ -587,6 +595,10 @@ combination"""
             self.mBar.pack()
 
 if __name__ == '__main__':
-    app = Application()
-    app.mainloop()
-    app.master.destroy()
+    try:
+        app = Application()
+        app.mainloop()
+        app.master.destroy()
+    # avoid _tkinter.TclError if window is closed with 'Close' button
+    except TclError:
+        pass
