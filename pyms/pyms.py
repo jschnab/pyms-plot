@@ -4,6 +4,9 @@
 
 #TO DO: change window icon
 #TO DO: put error handlers
+#TO DO: if a plot has already been generated, redraw figure when user
+#       changes 'group by' or 'color'
+#       can detect if plot is open with plt.fignum_exists(fig.number)
 
 ### --- history --- ###
 # 15/02/2018: addition of number_rep.reindex() to re-establish original data order
@@ -67,16 +70,21 @@ from itertools import combinations
 
 class Global(object):
     """Class for global data"""
-    #dataframe data
+    # dataframe data
     struct = None
     geno = None
     col = None
-    #figure data
+    number_rep = None
+    medians = None
+
+    # figure data
     figure = None
     ax = None
-    #file name from "filedialog.askopenfilename()"
+
+    # file name from "filedialog.askopenfilename()"
     file_name = None
-    #counter for file extension
+    
+    # counter for file extension
     export_number_fig = 0
     export_number_stats = 0
     
@@ -199,8 +207,8 @@ class Application(Frame):
         Frame.__init__(self)
         self.master.title('PyMS 0.8.1')
         self.mBar = MenuBar(self)
-        self.mBar.me1.invoke(1)
-        self.mBar.me3.invoke(2)
+        #self.mBar.me1.invoke(1)
+        #self.mBar.me3.invoke(2)
         self.mBar.pack()
         self.can = Canvas(self, bg='light grey', height=0, width=250,\
                           borderwidth=2)
@@ -355,6 +363,57 @@ indicated as column headers.\n\n')
         else:
             for g in Global.geno:
                 self.mBar.samples[g].set(0)
+
+    def read_csv(self):
+        """Return data from the csv file.
+        file_name : name of csv file chosen by user
+        col : dataframe containing data from csv file
+        geno : list of genotypes from the dataframe."""
+        # browse file name
+        file_name = filedialog.askopenfilename()
+
+        col = pd.read_csv(file_name)
+
+        # remove NaN values from data frame
+        index_name = col.columns[0]
+        col = col.loc[~pd.isna(col[index_name])]
+        col = col.dropna(1)
+
+        # set index as first column
+        col = col.set_index(index_name)
+
+        # collect genotype names
+        # preserve original order of genotypes
+        geno = []
+        for g in col.index:
+            if g not in geno:
+                geno.append(g)
+
+        return file_name, col, geno
+
+    def process_data(self):
+        """Return number of repetitions per genotype, names of fungal 
+        structures and calculate medians."""
+        
+        # group by genotype
+        if self.mBar.group_by.get() == 0:
+            # count the number of repetitions for each genotype
+            number_rep = Global.col.index.value_counts()
+            number_rep = number_rep.reindex(geno)
+
+            # collect names of fungal structures
+            struct = Global.col.columns[:]
+
+            # group data by genotype
+            col_group = Global.col.groupby(Global.col.index) 
+
+            # calculate medians
+            medians = col_group.median()
+            medians = medians.reindex(geno)
+
+            return number_rep, struct, medians
+
+        # group by structure
 
     def process_csv(self):
         """Read csv file containing arbuscular mycorrhizal fungi colonization
