@@ -46,7 +46,7 @@ Here is an example if you perform the Mann-Whitney test on the genotypes *117KO*
 
 <img src="mann_whitney.png" width="800" alt="Banner">
 
-Here is another example if you perform the Kruskal-Wallis followed by Dunn tests on the genotypes *hebiba (AOC)* (loss-of-function mutant), NH WT (wild type) and PGC82-2 (complemented loss-of-function mutant). The results are displayed as for the Mann-Whitney test except there are more genotypes comparisons.
+Here is another example if you perform the Kruskal-Wallis followed by Dunn tests on the genotypes *hebiba (AOC)* (loss-of-function mutant), NH WT (wild type) and PCG82-2 (complemented loss-of-function mutant). The results are displayed as for the Mann-Whitney test except there are more genotypes comparisons.
 
 <img src="kw_dunn.png" width="800" alt="Banner">
 
