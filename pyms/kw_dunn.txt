@@ -1,0 +1,8 @@
+p-values of Dunn's test for genotype combinations indicated in the 
+"Genotypes" columns and fungal structures indicated as column headers.
+
+                           Total        EH        HP        IH         A         V         S
+Genotypes                                                                                   
+[NH WT, hebiba(AOC)]    0.035340  0.013231  0.022936  0.035043  0.018161  0.014369  0.069524
+[NH WT, PCG82-2]        0.088971  0.285460  0.160450  0.088582  0.195294  0.235532  0.087014
+[hebiba(AOC), PCG82-2]  0.001292  0.004927  0.002407  0.001264  0.002785  0.003285  0.003540
