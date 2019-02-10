@@ -44,9 +44,9 @@ Visualize the data and save a figure
 
 Here is the expected output if you use the file *test_colonization.csv*.
 
-.. image:: https://github.com/jschnab/pyms/blob/master/test_colonization.png 
+.. image:: test_colonization.png 
   :width: 800
-  :alt: Banner
+  :alt: plot
 
 Statistical analysis
 --------------------
