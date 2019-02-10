@@ -4,7 +4,7 @@ Python for Mycorrhizal Symbiosis analysis (PyMS) is a graphical user interface-b
 
 ## Installation
 
-PyMS depends on [pandas](https://pandas.pydata.org/), [NumPy](http://www.numpy.org/), [matplotlib](https://matplotlib.org/) and [SciPy](https://matplotlib.org/). You can install them using your favourite package manager. To install PyMyS you can clone the [GitHub repository](https://github.com/jschnab/pyms.git) then follow one of the next two options. 
+PyMS is written in Python 3 and depends on [pandas 0.23](https://pandas.pydata.org/), [NumPy](http://www.numpy.org/), [matplotlib](https://matplotlib.org/), [SciPy](https://matplotlib.org/) and [TkInter](https://docs.python.org/3/library/tk.html). You can install them using your favourite package manager. TkInter is traditionally bundled with Python. To install PyMyS you can clone the [GitHub repository](https://github.com/jschnab/pyms.git) then follow one of the next two options.
 
 ### Windows users
 
