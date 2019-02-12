@@ -124,11 +124,11 @@ class MenuBar(Frame):
         #drop-down part
         for (v, lab) in [(0, 'Genotype'), (1, 'Structure')]:
             self.me1.add_radiobutton(label=lab, variable=self.group_by,
-                                     value=v, command=None)
+                                     value=v, command=self.groupBy)
         #integrate to menu
         groupbyMenu.configure(menu=self.me1)
 
-        ### <Color menu ###
+        ### <Color menu> ###
         colorMenu = Menubutton(self, text='Color')
         colorMenu.pack(side=LEFT)
         self.me3 = Menu(colorMenu)
@@ -195,6 +195,14 @@ class MenuBar(Frame):
                   (1, 00, 00),
                   (.7, .13, .13)))
 
+    def groupBy(self):
+        # redraw figure if it exists
+        if Global.figure:
+            if plt.fignum_exists(Global.figure.number):
+                plt.close('all')
+                app.process_data()
+                app.plot_data()
+
     def changeCol(self):
         self.col = []
         c = self.color.get()
@@ -202,9 +210,10 @@ class MenuBar(Frame):
             self.col.append(i)
 
          # redraw figure if it exists
-        if plt.fignum_exists(Global.figure.number):
-            plt.close('all')
-            boss.plot_data(self)
+        if Global.figure:
+            if plt.fignum_exists(Global.figure.number):
+                plt.close('all')
+                app.plot_data()
 
 class Application(Frame):
     """main application"""
@@ -212,8 +221,8 @@ class Application(Frame):
         Frame.__init__(self)
         self.master.title('PyMS 0.8.1')
         self.mBar = MenuBar(self)
-        #self.mBar.me1.invoke(1)
-        #self.mBar.me3.invoke(2)
+        self.mBar.me1.invoke(1)
+        self.mBar.me3.invoke(2)
         self.mBar.pack()
         self.can = Canvas(self, bg='light grey', height=0, width=250,\
                           borderwidth=2)
@@ -396,7 +405,7 @@ indicated as column headers.\n\n')
 
         return file_name, col, geno
 
-    def process_data(self, geno):
+    def process_data(self):
         """Return number of repetitions per genotype, names of fungal 
         structures and calculate medians."""
         
@@ -404,25 +413,25 @@ indicated as column headers.\n\n')
         if self.mBar.group_by.get() == 0:
             # count the number of repetitions for each genotype
             number_rep = Global.col.index.value_counts()
-            number_rep = number_rep.reindex(geno)
+            Global.number_rep = number_rep.reindex(Global.geno)
 
             # collect names of fungal structures
-            struct = Global.col.columns[:]
+            Global.struct = Global.col.columns[:]
 
             # group data by genotype
             col_group = Global.col.groupby(Global.col.index) 
 
             # calculate medians
             medians = col_group.median()
-            medians = medians.reindex(geno)
+            Global.medians = medians.reindex(Global.geno)
 
-            return number_rep, struct, medians
+            #return number_rep, struct, medians
 
         # group by structure
-        if self.mBar.group_by.get() == 1: 
+        elif self.mBar.group_by.get() == 1: 
             #count the number of repetitions for each genotype
             number_rep = Global.col.index.value_counts()
-            number_rep = number_rep.reindex(geno)
+            Global.number_rep = number_rep.reindex(Global.geno)
 
             #collect names of fungal structures
             Global.struct = Global.col.columns[:]
@@ -430,9 +439,9 @@ indicated as column headers.\n\n')
             #calculate medians and invert axes of dataframe
             col_group = Global.col.groupby(Global.col.index) # group data by genotype
             medians = col_group.median()
-            medians_trans = medians.transpose()
+            Global.medians_trans = medians.transpose()
 
-            return number_rep, struct, medians_trans
+            #return number_rep, struct, medians_trans
 
     def plot_data(self):
         """Display bar + scatter plot."""
@@ -463,7 +472,7 @@ indicated as column headers.\n\n')
             #draw scatter plot from individual data points
             #first you need a list with data coordinates from the 'col' DataFrame
             start = [0]
-            end = [number_rep[0] - 1]
+            end = [Global.number_rep[0] - 1]
             counter = 1
             while counter < len(Global.geno):
                 start.append(end[counter - 1] + 1)
@@ -520,7 +529,7 @@ indicated as column headers.\n\n')
 
             s = 0
             while s < len(Global.geno):
-                plt.bar([p + s * width for p in pos], Global.medians_trans[geno[s]],
+                plt.bar([p + s * width for p in pos], Global.medians_trans[Global.geno[s]],
                         width, alpha=1, color=colors[s], edgecolor='black',
                         linewidth=.5, zorder=3)
                 s += 1
@@ -632,7 +641,7 @@ combination"""
 
             #count the number of repetitions for each genotype
             number_rep = Global.col.index.value_counts()
-            number_rep = number_rep.reindex(geno)
+            Global.number_rep = number_rep.reindex(geno)
 
             #collect names of fungal structures
             Global.struct = Global.col.columns[:]
@@ -640,7 +649,7 @@ combination"""
             #calculate medians
             col_group = Global.col.groupby(Global.col.index) # group data by genotype
             medians = col_group.median()
-            medians = medians.reindex(geno)
+            Global.medians = medians.reindex(geno)
 
             #=== GRAPHICS ===#
             #set positions and width for bars
@@ -761,7 +770,7 @@ combination"""
 
             #count the number of repetitions for each genotype
             number_rep = Global.col.index.value_counts()
-            number_rep = number_rep.reindex(geno)
+            Global.number_rep = number_rep.reindex(geno)
 
             #collect names of fungal structures
             Global.struct = Global.col.columns[:]
@@ -769,7 +778,7 @@ combination"""
             #calculate medians and invert axes of dataframe
             col_group = Global.col.groupby(Global.col.index) # group data by genotype
             medians = col_group.median()
-            medians_trans = medians.transpose()
+            Global.medians_trans = medians.transpose()
 
             #=== GRAPHICS ===#
             #set positions and width for bars
@@ -785,7 +794,7 @@ combination"""
 
             s = 0
             while s < len(geno):
-                plt.bar([p + s * width for p in pos], medians_trans[geno[s]],
+                plt.bar([p + s * width for p in pos], Global.medians_trans[geno[s]],
                         width, alpha=1, color=colors[s], edgecolor='black',
                         linewidth=.5, zorder=3)
                 s += 1
@@ -795,11 +804,11 @@ combination"""
             #draw scatter plot from individual data points
             #first you need a list with data coordinates from the 'col' DataFrame
             start = [0]
-            end = [number_rep[0] - 1]
+            end = [Global.number_rep[0] - 1]
             counter = 1
             while counter < len(geno):
                 start.append(end[counter - 1] + 1)
-                end.append(end[counter - 1] + number_rep[counter])
+                end.append(end[counter - 1] + Global.number_rep[counter])
                 counter += 1
 
             #browse data and add individual points on the graph
