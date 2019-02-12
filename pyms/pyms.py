@@ -76,6 +76,7 @@ class Global(object):
     col = None
     number_rep = None
     medians = None
+    medians_trans = None
 
     # figure data
     figure = None
@@ -200,7 +201,7 @@ class MenuBar(Frame):
         if Global.figure:
             if plt.fignum_exists(Global.figure.number):
                 plt.close('all')
-                app.process_data()
+                Global.number_rep, Global.struct, Global.medians = app.process_data()
                 app.plot_data()
 
     def changeCol(self):
@@ -413,35 +414,35 @@ indicated as column headers.\n\n')
         if self.mBar.group_by.get() == 0:
             # count the number of repetitions for each genotype
             number_rep = Global.col.index.value_counts()
-            Global.number_rep = number_rep.reindex(Global.geno)
+            number_rep = number_rep.reindex(Global.geno)
 
             # collect names of fungal structures
-            Global.struct = Global.col.columns[:]
+            struct = Global.col.columns[:]
 
             # group data by genotype
             col_group = Global.col.groupby(Global.col.index) 
 
             # calculate medians
             medians = col_group.median()
-            Global.medians = medians.reindex(Global.geno)
+            medians = medians.reindex(Global.geno)
 
-            #return number_rep, struct, medians
+            return number_rep, struct, medians
 
         # group by structure
         elif self.mBar.group_by.get() == 1: 
             #count the number of repetitions for each genotype
             number_rep = Global.col.index.value_counts()
-            Global.number_rep = number_rep.reindex(Global.geno)
+            number_rep = number_rep.reindex(Global.geno)
 
             #collect names of fungal structures
-            Global.struct = Global.col.columns[:]
+            struct = Global.col.columns[:]
 
             #calculate medians and invert axes of dataframe
             col_group = Global.col.groupby(Global.col.index) # group data by genotype
             medians = col_group.median()
-            Global.medians_trans = medians.transpose()
+            medians_trans = medians.transpose()
 
-            #return number_rep, struct, medians_trans
+            return number_rep, struct, medians_trans
 
     def plot_data(self):
         """Display bar + scatter plot."""
@@ -529,7 +530,7 @@ indicated as column headers.\n\n')
 
             s = 0
             while s < len(Global.geno):
-                plt.bar([p + s * width for p in pos], Global.medians_trans[Global.geno[s]],
+                plt.bar([p + s * width for p in pos], Global.medians[Global.geno[s]],
                         width, alpha=1, color=colors[s], edgecolor='black',
                         linewidth=.5, zorder=3)
                 s += 1
@@ -602,7 +603,7 @@ indicated as column headers.\n\n')
         # button to select/deselect all samples
         self.mBar.me6.add_checkbutton(label='Select all', command=self.select_all_samples, variable=self.mBar.select_all, onvalue=1, offvalue=0)
         self.mBar.samples = {} #re-initialize dictionary
-        for (v, lab) in list(enumerate(geno)):
+        for (v, lab) in list(enumerate(Global.geno)):
             self.mBar.samples['{0}'.format(lab)] = IntVar()
             self.mBar.me6.add_checkbutton(label=lab, variable=self.mBar.samples[lab], command=None, onvalue=1, offvalue=0)
         self.mBar.me5.add_cascade(label='Select samples', menu=self.mBar.me6)
@@ -616,261 +617,13 @@ combination"""
         
         Global.export_number_fig += 1
 
-        if self.mBar.group_by.get() == 0:    #group by genotype
-            #=== PREPARATION ===#
-            #browse file name
-            Global.file_name = filedialog.askopenfilename()
+        Global.filename, Global.col, Global.geno = self.read_csv()
 
-            #read the csv file
-            Global.col = pd.read_csv(Global.file_name)
+        Global.number_rep, Global.struct, Global.medians = self.process_data()
+        
+        self.plot_data()
 
-            #remove NaN values from data frame
-            index_name = Global.col.columns[0]
-            Global.col = Global.col.loc[~pd.isna(Global.col[index_name])]
-            Global.col = Global.col.dropna(1)
-
-            #set index as first column
-            Global.col = Global.col.set_index(index_name)
-
-            #collect genotype names
-            geno = []
-            for g in Global.col.index:
-                if g not in geno:
-                    geno.append(g)
-            Global.geno = geno
-
-            #count the number of repetitions for each genotype
-            number_rep = Global.col.index.value_counts()
-            Global.number_rep = number_rep.reindex(geno)
-
-            #collect names of fungal structures
-            Global.struct = Global.col.columns[:]
-
-            #calculate medians
-            col_group = Global.col.groupby(Global.col.index) # group data by genotype
-            medians = col_group.median()
-            Global.medians = medians.reindex(geno)
-
-            #=== GRAPHICS ===#
-            #set positions and width for bars
-            pos = list(range(len(geno)))
-            width = 1 / (len(Global.struct) + 1)
-
-            #plotting bars
-            Global.figure = plt.figure(figsize=(10, 5))
-            Global.ax = Global.figure.add_axes([0.1, 0.1, 0.75, 0.85])
-
-            #draw bar plot from medians
-            colors = self.mBar.col
-
-            s = 0
-            while s < len(Global.struct):
-                plt.bar([p + s * width for p in pos], medians[Global.struct[s]], width,
-                        alpha=1, color=colors[s], edgecolor='black',
-                        linewidth=.5, zorder=3)
-                s += 1
-                #add legend
-                Global.ax.legend(Global.struct, bbox_to_anchor=(1, 0.5),
-                                 loc='center left')
-
-            #draw scatter plot from individual data points
-            #first you need a list with data coordinates from the 'col' DataFrame
-            start = [0]
-            end = [number_rep[0] - 1]
-            counter = 1
-            while counter < len(geno):
-                start.append(end[counter - 1] + 1)
-                end.append(end[counter -1] + number_rep[counter])
-                counter += 1
-
-            #browse data and add individual points on the graph
-            s = 0
-            while s < len(Global.struct):
-                i = 0
-                while i < len(geno):
-                    for k in range(start[i], end[i] + 1):
-                        plt.plot(i + s * width, Global.col[Global.struct[s]].values[k],
-                                 c='black', marker='o', fillstyle='full',
-                                 zorder=4, mew=.5, markersize=1.5,
-                                 clip_on=False)
-                    i += 1
-                s += 1
-
-            #set y axis label
-            Global.ax.set_ylabel('Total root length colonization (%)')
-
-            #set position of x ticks but no display
-            Global.ax.set_xticks([p + width * ((len(Global.struct) - 1) / 2) for p in pos])
-            Global.ax.tick_params(axis='x', color='white')
-
-            #set label for x ticks
-            Global.ax.set_xticklabels(geno)
-
-            #set y axis limits
-            plt.ylim([0, 100])
-            plt.xlim([min(pos) - width, max(pos) + len(Global.struct) * width])
-
-            #remove figure frame
-            Global.ax.spines['top'].set_visible(False)
-            Global.ax.spines['right'].set_visible(False)
-            Global.ax.spines['bottom'].set_visible(False)
-
-            #shows figure
-            Global.figure.show()
-
-            #=== STATISTICS ===#
-            #adapts the menu to data (allow to select individual samples)
-            #creates a check_button menu with names of genotypes
-            #re-builds the stats menu for subsequent analysis
-            if Global.export_number_fig > 1: 
-                self.mBar.me5.destroy()
-            #drop-down part
-            self.mBar.me5 = Menu(self.mBar.statMenu)
-            #tkinter variable
-            self.mBar.stat_test = IntVar()
-            for (v, lab) in [(0, 'Mann-Whitney test'),
-                             (1, 'Kruskal-Wallis-Dunn test')]:
-                self.mBar.me5.add_radiobutton(label=lab, variable=self.mBar.stat_test,
-                                              value=v, command=None)
-            self.mBar.me6 = Menu(self.mBar.me5)
-            # tkinter variable to store if 'Select all' button is checked
-            self.mBar.select_all = IntVar()
-            # button to select/deselect all samples
-            self.mBar.me6.add_checkbutton(label='Select all', command=self.select_all_samples, variable=self.mBar.select_all, onvalue=1, offvalue=0)
-            self.mBar.samples = {} #re-initialize dictionary
-            for (v, lab) in list(zip(range(len(geno)), geno)):
-                self.mBar.samples['{0}'.format(lab)] = IntVar()
-                self.mBar.me6.add_checkbutton(label=lab, variable=self.mBar.samples[lab], command=None, onvalue=1, offvalue=0)
-            self.mBar.me5.add_cascade(label='Select samples', menu=self.mBar.me6)
-            self.mBar.statMenu.configure(menu=self.mBar.me5)
-            self.mBar.pack()
-
-        elif self.mBar.group_by.get() == 1:    #group by structure
-            #=== PREPARATION ===#
-            #browse file name
-            Global.file_name = filedialog.askopenfilename()
-
-            #read the csv file
-            Global.col = pd.read_csv(Global.file_name)
-
-            #remove NaN values from data frame
-            index_name = Global.col.columns[0]
-            Global.col = Global.col.loc[~pd.isna(Global.col[index_name])]
-            Global.col = Global.col.dropna(1)
-
-            #set index as first column
-            Global.col = Global.col.set_index(index_name)
-
-            #collect genotype names
-            geno = []
-            for g in Global.col.index:
-                if g not in geno:
-                    geno.append(g)
-            Global.geno = geno
-
-            #count the number of repetitions for each genotype
-            number_rep = Global.col.index.value_counts()
-            Global.number_rep = number_rep.reindex(geno)
-
-            #collect names of fungal structures
-            Global.struct = Global.col.columns[:]
-
-            #calculate medians and invert axes of dataframe
-            col_group = Global.col.groupby(Global.col.index) # group data by genotype
-            medians = col_group.median()
-            Global.medians_trans = medians.transpose()
-
-            #=== GRAPHICS ===#
-            #set positions and width for bars
-            pos = list(range(len(Global.struct)))
-            width = 1 / (len(geno) + 1)
-
-            #plotting bars
-            Global.figure = plt.figure(figsize=(10, 5))
-            Global.ax = Global.figure.add_axes([0.1, 0.1, 0.75, 0.85])
-
-            #draw bar plot from medians
-            colors = self.mBar.col
-
-            s = 0
-            while s < len(geno):
-                plt.bar([p + s * width for p in pos], Global.medians_trans[geno[s]],
-                        width, alpha=1, color=colors[s], edgecolor='black',
-                        linewidth=.5, zorder=3)
-                s += 1
-                #add legend
-                Global.ax.legend(geno, bbox_to_anchor=(1, 0.5), loc='center left')
-
-            #draw scatter plot from individual data points
-            #first you need a list with data coordinates from the 'col' DataFrame
-            start = [0]
-            end = [Global.number_rep[0] - 1]
-            counter = 1
-            while counter < len(geno):
-                start.append(end[counter - 1] + 1)
-                end.append(end[counter - 1] + Global.number_rep[counter])
-                counter += 1
-
-            #browse data and add individual points on the graph
-            s = 0
-            while s < len(Global.struct):
-                i = 0
-                while i < len(geno):
-                    for k in range(start[i], end[i] + 1):
-                        plt.plot(s + i * width, Global.col[Global.struct[s]].values[k],
-                                 c='black', marker='o', fillstyle='full',
-                                 zorder=4, mew=.5, markersize=1.5,
-                                 clip_on=False)
-                    i += 1
-                s += 1
-
-            #set y axis label
-            Global.ax.set_ylabel('Total root length colonization (%)')
-
-            #set position of x ticks but no display
-            Global.ax.set_xticks([p + width * ((len(geno) / 2 - .5)) for p in pos])
-            Global.ax.tick_params(axis='x', color='white')
-
-            #set label for x ticks
-            Global.ax.set_xticklabels(Global.struct)
-
-            #set y axis limits
-            plt.ylim([0, 100])
-            plt.xlim([min(pos) - width, max(pos) + len(geno) * width + width / 2])
-
-            #remove figure frame
-            Global.ax.spines['top'].set_visible(False)
-            Global.ax.spines['right'].set_visible(False)
-            Global.ax.spines['bottom'].set_visible(False)
-
-            Global.figure.show()
-
-            #=== STATISTICS ===#
-            #adapts the menu to data (allow to select individual samples)
-            #creates a check_button menu with names of genotypes
-            #re-builds the stats menu for subsequent analysis
-            if Global.export_number_fig > 1: 
-                self.mBar.me5.destroy()
-            #drop-down part
-            self.mBar.me5 = Menu(self.mBar.statMenu)
-            #tkinter variable
-            self.mBar.stat_test = IntVar()
-            for (v, lab) in [(0, 'Mann-Whitney test'),
-                             (1, 'Kruskal-Wallis-Dunn test')]:
-                self.mBar.me5.add_radiobutton(label=lab, variable=self.mBar.stat_test,
-                                              value=v, command=None)
-            self.mBar.me6 = Menu(self.mBar.me5)
-            # tkinter variable to store if 'Select all' button is checked
-            self.mBar.select_all = IntVar()
-            # button to select/deselect all samples
-            self.mBar.me6.add_checkbutton(label='Select all', command=self.select_all_samples, variable=self.mBar.select_all, onvalue=1, offvalue=0)
-            self.mBar.samples = {} #re-initialize dictionary
-            for (v, lab) in list(zip(range(len(geno)), geno)):
-                self.mBar.samples['{0}'.format(lab)] = IntVar()
-                self.mBar.me6.add_checkbutton(label=lab, variable=self.mBar.samples[lab], command=None, onvalue=1, offvalue=0)
-            self.mBar.me5.add_cascade(label='Select samples', menu=self.mBar.me6)
-            self.mBar.statMenu.configure(menu=self.mBar.me5)
-            self.mBar.pack()
+        self.do_stats()
 
 if __name__ == '__main__':
     try:
