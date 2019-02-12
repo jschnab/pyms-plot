@@ -26,24 +26,22 @@
   doi       = { 10.1109/MCSE.2007.55 }
 }
 
-@article{ Paszkowski,
-  Author    = { Paszkowski, Uta and Jakovleva, Ludmila and Boller, Thomas },
-  Journal   = { The Plant Journal },
-  Number    = { 2 },
-  Pages     = { 165 - 173 },
-  Title     = { Maize mutants affected at distinct stages of the arbuscular mycorrhizal symbiosis. },
-  Volume    = { 47 },
-  Year      = { 2006 },
-  doi       = { 10.1111/j.1365-313X.2006.02785.x }
+@article{ paszkowski,
+	Author = { Paszkowski, U., Jakovleva, L., Boller, T. },
+	Journal = { Plant Journal },
+	Pages = { 165 - 173 },
+	Title = { Maize mutants affected at distinct stages of the arbuscular mycorrhizal symbiosis },
+	Volume = { 47 },
+	Year = { 2006 },
+	doi = { 10.1111/j.1365-313X.2006.02785.x }
 }
 
-@article{ Chiu,
-  Author    = { Chiu, Chai H. and Choi, Jeongmin and Paszkowski, Uta },
-  Journal   = { New Phytologist },
-  Number    = { 2 },
-  Pages     = { 552 - 557 },
-  Title     = { Independent signalling cues underpin arbuscular mycorrhizal symbiosis and large lateral root induction in rice. },
-  Volume    = { 217 },
-  Year      = { 2018 },
-  doi       = { 10.1111/nph.14936 }
+@article{ chiu,
+	Author = { Chiu, C., Choi, J., Paszkowski, U. },
+	Journal = { New Phytologist },
+	Pages = { 552 - 557 },
+	Title = { Independant signalling cues underpin arbuscular mycorrhizal symbiosis and large lateral root induction in rice },
+	Volume = { 217 },
+	Year = { 2018},
+	doi = { 10.1111/nph.14936 }
 }

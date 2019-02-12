@@ -13,6 +13,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
    
@@ -61,13 +62,20 @@
 <li>Click on the “Process” menu and click on “Analyze csv file”, it will open a pop-up and you can browse your file.</li>
 <li>Click on the “File” menu and point on “Save as” to display the file type choice. Click on the file extension name to save your file in the same folder as your csv file. If you generate several figures by clicking on “Analyze csv file” several times, it will save the last figure generated.</li>
 </ul>
+<p>Here is the expected output if you use the file <em>test_colonization.csv</em>.</p>
+<a class="reference internal image-reference" href="https://github.com/jschnab/pyms/blob/master/test_colonization.png"><img alt="Banner" src="https://github.com/jschnab/pyms/blob/master/test_colonization.png" style="width: 800px;" /></a>
 </div>
 <div class="section" id="statistical-analysis">
 <h2>Statistical analysis<a class="headerlink" href="#statistical-analysis" title="Permalink to this headline">¶</a></h2>
+<p>PyMS allows you to perform statistical testing of inter-genotype comparisons using the Mann-Whitney test or the Kruskal-Wallis test followed by the Dunn test for post-hoc analysis (i.e. the Kruskal-Wallis test tells you if at least one genotype is different from the others while the Dunn test tells you which genotypes are different from the others). If you want to compare two genotypes, use the Mann-Whitney test. If you want to compare multiple genotypes, use the Kruskal-Walls then Dunn tests.</p>
 <ul class="simple">
 <li>If you have not opened the csv file in PyMS yet, click on the “Process” menu and click on “Analyze csv file”, it will open a pop-up and you can browse your file.</li>
 <li>Click on the “Statistics” menu and select the test you want by ticking one of them. You then need to select the genotypes you want to analyze in the “Select samples” menu. You can detach the menu by clicking on the dashed line at the top of the window, so that you don’t have to open the menu each time you select a genotype. Once you selected the genotypes of interest, click on “Perform statistical test” in the “Process” menu. The p-values returned by the test will be saved in a text file in the same folder as your csv file.</li>
 </ul>
+<p>Here is an example if you perform the Mann-Whitney test on the genotypes <em>117KO</em> (loss-of-colonization mutant) and <em>117REV</em> (wild type) from the file <em>test_colonization.csv</em>. The column <em>Genotypes</em> indicates the genotypes which are compared. The other columns represent the different fungal structures. Yhe numbers in each column represent the p-value for the difference in colonization levels for the different fungal structures.</p>
+<a class="reference internal image-reference" href="https://github.com/jschnab/pyms/blob/master/mann_whitney.png"><img alt="Banner" src="https://github.com/jschnab/pyms/blob/master/mann_whitney.png" style="width: 600px;" /></a>
+<p>Here is another example if you perform the Kruskal-Wallis test followed by the Dunn test on the genotypes <em>hebiba (AOC)</em> (loss-of-function mutant), NH WT (wild type) and PCG82-2 (complemented loss-of-function mutant). The results are displayed as for the Mann-Whitney test except there are more genotypes comparisons.</p>
+<a class="reference internal image-reference" href="https://github.com/jschnab/pyms/blob/master/kw_dunn.png"><img alt="Banner" src="https://github.com/jschnab/pyms/blob/master/kw_dunn.png" style="width: 600px;" /></a>
 </div>
 <div class="section" id="support">
 <h2>Support<a class="headerlink" href="#support" title="Permalink to this headline">¶</a></h2>
@@ -112,6 +120,14 @@
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -120,8 +136,8 @@
       &copy;2018, Jonathan Schnabel.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="_sources/index.rst.txt"

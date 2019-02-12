@@ -1,0 +1,7 @@
+Mann-Whitney two-sided test for genotype combinations indicated in the 
+"Genotypes" columns and fungal structures indicated as column headers.
+Values indicate p-value.
+
+                  Total      EH      HP      IH       A      V       S
+Genotypes                                                             
+[117KO, 117REV]  0.0184  0.3381  0.0297  0.0137  0.0098  0.006  0.0853
