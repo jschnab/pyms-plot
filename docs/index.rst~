@@ -14,26 +14,20 @@ Documentation
 Installation
 ------------
 
-PyMS is written in Python 3 and depends on [pandas 0.23](https://pandas.pydata.org/), [NumPy](http://www.numpy.org/), [matplotlib](https://matplotlib.org/), [SciPy](https://matplotlib.org/), [statsmodels](https://www.statsmodels.org) and [TkInter](https://docs.python.org/3/library/tk.html). You can install them by running on the command line:
-```
-python -m pip install <library name>
-```
+PyMS is written in Python 3 and depends on [pandas 0.23](https://pandas.pydata.org/), [NumPy](http://www.numpy.org/), [matplotlib](https://matplotlib.org/), [SciPy](https://matplotlib.org/), [statsmodels](https://www.statsmodels.org) and [TkInter](https://docs.python.org/3/library/tk.html). You can install them by running on the command line::
+    python -m pip install <library name>
 
-After installing SciPy, in order for PyMS to be able to import `scipy.stats`, run:
-```
-python -m pip install --upgrade scipy
-```
+After installing SciPy, in order for PyMS to be able to import ``scipy.stats``, run::
+    python -m pip install --upgrade scipy
 
 TkInter is traditionally bundled with Python. 
 
-Install PyMS through pip:
-```
-python -m pip install pyms-plot
-```
+Install PyMS through pip::
+    python -m pip install pyms-plot
 
 ## Running PyMS
 
-Once PyMS is installed, you can run `pyms` on the command line. It may take a few seconds before the graphical interface appears.
+Once PyMS is installed, you can run ``pyms`` on the command line. It may take a few seconds before the graphical interface appears.
 
 Input data and file format
 --------------------------
