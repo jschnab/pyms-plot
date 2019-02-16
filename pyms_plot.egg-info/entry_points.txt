@@ -1,0 +1,3 @@
+[console_scripts]
+pyms = pyms.pyms:main
+

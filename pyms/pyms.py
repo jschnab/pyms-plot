@@ -57,6 +57,8 @@
 #            user chooses where to save files (plots and test results)
 #            'Select all' button to select all genotypes for tests
 
+__version__ = '0.8.1'
+
 from tkinter import *
 from tkinter import filedialog
 import pandas as pd
@@ -65,7 +67,7 @@ import matplotlib
 matplotlib.use("TkAgg")
 from matplotlib import pyplot as plt
 from scipy.stats import mannwhitneyu as mw
-import dunn_test 
+from .dunn_test import kw_dunn
 from itertools import combinations
 
 class Global(object):
@@ -91,7 +93,7 @@ class Global(object):
     
 class MenuBar(Frame):
     """drop-down menu bar"""
-    def __init__(self, boss=None):
+    def __init__(self, boss):
         Frame.__init__(self, borderwidth=2)
 
         ### <File> menu ###
@@ -201,8 +203,8 @@ class MenuBar(Frame):
         if Global.figure:
             if plt.fignum_exists(Global.figure.number):
                 plt.close('all')
-                Global.number_rep, Global.struct, Global.medians = app.process_data()
-                app.plot_data()
+                Global.number_rep, Global.struct, Global.medians = Global.app.process_data()
+                Global.app.plot_data()
 
     def changeCol(self):
         self.col = []
@@ -214,7 +216,7 @@ class MenuBar(Frame):
         if Global.figure:
             if plt.fignum_exists(Global.figure.number):
                 plt.close('all')
-                app.plot_data()
+                Global.app.plot_data()
 
 class Application(Frame):
     """main application"""
@@ -339,7 +341,7 @@ indicated as column headers.\nValues indicate p-value.\n\n')
             data = []
             for g in geno_test:
                 data.append(list(Global.col[s][Global.col.index == g]))
-            p_val.append(dunn_test.kw_dunn(data, method='fdr_bh')[3])
+            p_val.append(kw_dunn(data, method='fdr_bh')[3])
 
         #generates all combinations of genotype pairs
         comp = tuple(combinations(geno_test, 2))
@@ -624,6 +626,15 @@ combination"""
         self.plot_data()
 
         self.do_stats()
+
+def main():
+    try:
+        Global.app = Application()
+        Global.app.mainloop()
+        Global.app.master.destroy()
+    # avoid _tkinter.TclError if window is closed with 'Close' button
+    except TclError:
+        pass
 
 if __name__ == '__main__':
     try:

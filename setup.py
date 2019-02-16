@@ -1,15 +1,26 @@
 import os
+import re
 from setuptools import setup
 from setuptools import find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
 
+version = re.search(
+        "^__version__\s*=\s*'(.*)'",
+        open('pyms/pyms.py').read(),
+        re.M
+        ).group(1)
+
 with open(os.path.join(here, 'README.md')) as infile:
     long_description = infile.read()
 
 setup(
-        name='pyms',
-        version='0.8.1',
+        name='pyms-plot',
+        packages=['pyms'],
+        entry_points={
+            'console_scripts': ['pyms=pyms.pyms:main']
+            },
+        version=version,
         description='PyMS (Python for Mycorrhizal Symbiosis)',
         long_description=long_description,
         url='https://github.com/jschnab/pyms',
@@ -23,6 +34,6 @@ setup(
         ],
         python_requires='>=3.5.2',
         keywords='arbuscular mycorrhizal symbiosis data analysis statistics',
-        packages=find_packages(),
-        install_requires=['numpy', 'scipy', 'pandas', 'matplotlib'],
+        #packages=find_packages(),
+        install_requires=['numpy', 'scipy', 'pandas', 'matplotlib', 'statsmodels'],
 )
