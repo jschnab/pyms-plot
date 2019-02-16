@@ -44,9 +44,9 @@ Visualize the data and save a figure
 
 Here is the expected output if you use the file *test_colonization.csv*.
 
-.. image:: https://github.com/jschnab/pyms/blob/master/test_colonization.png 
+.. image:: images/test_colonization.png 
   :width: 800
-  :alt: Banner
+  :alt: plot
 
 Statistical analysis
 --------------------
@@ -59,15 +59,15 @@ PyMS allows you to perform statistical testing of inter-genotype comparisons usi
 
 Here is an example if you perform the Mann-Whitney test on the genotypes *117KO* (loss-of-colonization mutant) and *117REV* (wild type) from the file *test_colonization.csv*. The column *Genotypes* indicates the genotypes which are compared. The other columns represent the different fungal structures. Yhe numbers in each column represent the p-value for the difference in colonization levels for the different fungal structures.
 
-.. image:: https://github.com/jschnab/pyms/blob/master/mann_whitney.png 
+.. image:: images/mann_whitney.png 
   :width: 600
-  :alt: Banner
+  :alt: mann-whitney
 
 Here is another example if you perform the Kruskal-Wallis test followed by the Dunn test on the genotypes *hebiba (AOC)* (loss-of-function mutant), NH WT (wild type) and PCG82-2 (complemented loss-of-function mutant). The results are displayed as for the Mann-Whitney test except there are more genotypes comparisons.
 
-.. image:: 
+.. image:: images/kw_dunn.png 
   :width: 600
-  :alt: Banner
+  :alt: kruskal-wallis
 
 Support
 -------

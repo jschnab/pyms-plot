@@ -57,7 +57,12 @@
 #            user chooses where to save files (plots and test results)
 #            'Select all' button to select all genotypes for tests
 
-__version__ = '0.8.1'
+# 14/02/2019 replot is re-drawn automatically when changing graphical
+#            graphical parameters
+
+# 16/02/2019 function "main()"
+
+__version__ = '0.9.0'
 
 from tkinter import *
 from tkinter import filedialog

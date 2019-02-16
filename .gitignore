@@ -1,6 +1,8 @@
 .README.md.un~
 README.md~
+.setup.py.un~
 docs/index.rst~
+docs/.index.rst.un~
 paper/.paper.bib.un~
 paper/.paper.md.un~
 paper/paper.bib~
@@ -8,7 +10,6 @@ paper/paper.md~
 pyms/.pyms.py.un~
 pyms/__pycache__/*
 pyms/pyms.py~
-.setup.py.un~
 pyms/.__init__.py.un~
 setup.py~
 pyms/.__main__.py.un~
