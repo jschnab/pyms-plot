@@ -14,19 +14,19 @@ Description: # PyMS
         
         PyMS is written in Python 3 and depends on [pandas 0.23](https://pandas.pydata.org/), [NumPy](http://www.numpy.org/), [matplotlib](https://matplotlib.org/), [SciPy](https://matplotlib.org/), [statsmodels](https://www.statsmodels.org) and [TkInter](https://docs.python.org/3/library/tk.html). You can install them by running on the command line:
         ```
-        python -m install <library name>
+        python -m pip install <library name>
         ```
         
         After installing SciPy, in order for PyMS to be able to import `scipy.stats`, run:
         ```
-        python -m install --upgrade scipy
+        python -m pip install --upgrade scipy
         ```
         
         TkInter is traditionally bundled with Python. 
         
         Install PyMS through pip:
         ```
-        python -m install pyms-plot
+        python -m pip install pyms-plot
         ```
         
         ## Running PyMS

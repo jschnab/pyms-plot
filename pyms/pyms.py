@@ -227,7 +227,7 @@ class Application(Frame):
     """main application"""
     def __init__(self, boss=None):
         Frame.__init__(self)
-        self.master.title('PyMS 0.8.1')
+        self.master.title('PyMS 0.9.0')
         self.mBar = MenuBar(self)
         self.mBar.me1.invoke(1)
         self.mBar.me3.invoke(2)
