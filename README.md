@@ -1,6 +1,11 @@
+[![DOI](http://joss.theoj.org/papers/10.21105/joss.01125/status.svg)](https://doi.org/10.21105/joss.01125)  
+[![PyPI](https://img.shields.io/pypi/v/sierralocal.svg)](https://pypi.org/project/sierralocal/)
+
 # PyMS
 
 Python for Mycorrhizal Symbiosis analysis (PyMS) is a graphical user interface-based program to visualize quantitative analysis of mycorrhizal fungi colonization of plant roots and perform statistical analysis of the data. It was developed to help researchers who are not familiar with command line-based softwares, or who want to increase their productivity during data analysis.
+
+If you use PyMS in your work, please cite as Schnabel, J. (2019). PyMS: Python for Mycorrhizal Symbiosis data analysis. Journal of Open Source Software, 4(34), 1125, [doi.org/10.21105/joss.01125](https://doi.org/10.21105/joss.01125).
 
 ## Installation
 
