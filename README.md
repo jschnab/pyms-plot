@@ -1,5 +1,5 @@
 [![DOI](http://joss.theoj.org/papers/10.21105/joss.01125/status.svg)](https://doi.org/10.21105/joss.01125)  
-[![PyPI](https://img.shields.io/pypi/v/sierralocal.svg)](https://pypi.org/project/sierralocal/)
+[![PyPI](https://img.shields.io/pypi/v/pyms-plot.svg)](https://pypi.org/project/pyms-plot/)
 
 # PyMS
 
