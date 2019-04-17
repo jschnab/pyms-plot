@@ -34,6 +34,5 @@ setup(
         ],
         python_requires='>=3.5.2',
         keywords='arbuscular mycorrhizal symbiosis data analysis statistics',
-        #packages=find_packages(),
         install_requires=['numpy', 'scipy', 'pandas', 'matplotlib', 'statsmodels'],
 )
