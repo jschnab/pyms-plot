@@ -62,7 +62,7 @@
 
 # 16/02/2019 function "main()"
 
-__version__ = '0.9.1'
+__version__ = '0.9.2'
 
 from tkinter import *
 from tkinter import filedialog
@@ -91,11 +91,11 @@ class Global(object):
 
     # file name from "filedialog.askopenfilename()"
     file_name = None
-    
+
     # counter for file extension
     export_number_fig = 0
     export_number_stats = 0
-    
+
 class MenuBar(Frame):
     """drop-down menu bar"""
     def __init__(self, boss):
@@ -174,7 +174,7 @@ class MenuBar(Frame):
                                      value=v, command=None)
         #integrate to menu
         self.statMenu.configure(menu=self.me5)
-        
+
         self.palettes = (((00, 00, 1), #blues
                   (.125, .125, 1),
                   (.25, .25, 1),
@@ -260,7 +260,7 @@ class Application(Frame):
     def do_stat_test(self):
         """Perform the statistical test of choice"""
         Global.export_number_stats += 1
-        
+
         if self.mBar.stat_test.get() == 0:
             self.mann_whitney()
         elif self.mBar.stat_test.get() == 1:
@@ -283,7 +283,7 @@ class Application(Frame):
             for j in geno_select:
                 if i == j:
                     geno_test.append(j)
-        
+
         #generates all combinations of genotype pairs
         comp = tuple(combinations(geno_test, 2))
 
@@ -293,7 +293,7 @@ class Application(Frame):
             for s in Global.struct:
                 p_val.append(mw(Global.col[s][Global.col.index == ii],
                                           Global.col[s][Global.col.index == jj])[1])
-        
+
         #put p-values in array then dataframe
         p_val = [round(i, 4) for i in p_val]
         p_arr = np.array(p_val).reshape(len(comp), len(Global.struct))
@@ -331,7 +331,7 @@ indicated as column headers.\nValues indicate p-value.\n\n')
             for j in geno_select:
                 if i == j:
                     geno_test.append(j)
-        
+
         #calculate p-values from Dunn's test and put them into list
         p_val = []
         for s in Global.struct:
@@ -348,7 +348,7 @@ indicated as column headers.\nValues indicate p-value.\n\n')
         while i < len(Global.struct):
             df.insert(loc=i, value=p_val[i], column=Global.struct[i])
             i += 1
-        
+
         df_row = []
         for pp, (ii, jj) in enumerate(comp):
             df_row.append([ii, jj])
@@ -406,9 +406,9 @@ indicated as column headers.\n\n')
         return file_name, col, geno
 
     def process_data(self):
-        """Return number of repetitions per genotype, names of fungal 
+        """Return number of repetitions per genotype, names of fungal
         structures and calculate medians."""
-        
+
         # group by genotype
         if self.mBar.group_by.get() == 0:
             # count the number of repetitions for each genotype
@@ -419,7 +419,7 @@ indicated as column headers.\n\n')
             struct = Global.col.columns[:]
 
             # group data by genotype
-            col_group = Global.col.groupby(Global.col.index) 
+            col_group = Global.col.groupby(Global.col.index)
 
             # calculate medians
             medians = col_group.median()
@@ -428,7 +428,7 @@ indicated as column headers.\n\n')
             return number_rep, struct, medians
 
         # group by structure
-        elif self.mBar.group_by.get() == 1: 
+        elif self.mBar.group_by.get() == 1:
             #count the number of repetitions for each genotype
             number_rep = Global.col.index.value_counts()
             number_rep = number_rep.reindex(Global.geno)
@@ -586,7 +586,7 @@ indicated as column headers.\n\n')
         #adapts the menu to data (allow to select individual samples)
         #creates a check_button menu with names of genotypes
         #re-builds the stats menu for subsequent analysis
-        if Global.export_number_fig > 1: 
+        if Global.export_number_fig > 1:
             self.mBar.me5.destroy()
         #drop-down part
         self.mBar.me5 = Menu(self.mBar.statMenu)
@@ -613,13 +613,13 @@ indicated as column headers.\n\n')
         """Read csv file containing arbuscular mycorrhizal fungi colonization
 data, calculate median, display bar chart and perform Mann-Whitney test on each genotype
 combination"""
-        
+
         Global.export_number_fig += 1
 
         Global.filename, Global.col, Global.geno = self.read_csv()
 
         Global.number_rep, Global.struct, Global.medians = self.process_data()
-        
+
         self.plot_data()
 
         self.do_stats()
